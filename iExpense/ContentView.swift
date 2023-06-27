@@ -39,10 +39,14 @@ struct ContentView: View {
                                     .foregroundColor(item.amount < 10 ? .mint : (item.amount >= 10 && item.amount < 100) ? .teal : .red)
                                     .bold()
                             }
+                            .accessibilityElement()
+                            .accessibilityLabel("\(item.name), \(item.amount, format: localCurrency)")
+                            .accessibilityHint("Personal expense")
                         }
                         .onDelete(perform: removePersonalExpenses)
                     }
                 }
+
                 Section("Business") {
                     List {
                         ForEach(expenses.items.filter { $0.type == "Business" }) { item in
@@ -58,6 +62,9 @@ struct ContentView: View {
                                     .foregroundColor(textColor(with: item.amount))
                                     .bold()
                             }
+                            .accessibilityElement()
+                            .accessibilityLabel("\(item.name), \(item.amount, format: localCurrency)")
+                            .accessibilityHint("Business expense")
                         }
                         .onDelete(perform: removeBusinessExpenses)
                     }
